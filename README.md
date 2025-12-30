@@ -31,10 +31,7 @@ A full-stack ticket booking platform with real-time availability updates, seat r
 
 ##  Security Best Practices
 
-- **Environment Variables**: Never commit your `.env` file. It is included in `.gitignore`.
 - **Input Validation**: All API endpoints should validate user input.
 - **Authentication**: Secure routes are protected by authentication middleware.
 - **SQL Injection**: Using `mysql2` with prepared statements/pools to prevent SQL injection.
 
-
-[Add your license here]
