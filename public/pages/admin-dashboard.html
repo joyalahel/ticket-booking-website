@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tazkirati | Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/assets/css/header.css">
+  <style>
+    body {
+      background: #0b0b0b;
+      color: #f3f3f3;
+    }
+    .admin-hero {
+      background: linear-gradient(135deg, #161616, #0d0d0d);
+      border: 1px solid #1f1f1f;
+      border-radius: 18px;
+      padding: 22px 24px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+    .admin-hero h1 {
+      letter-spacing: 0.4px;
+    }
+    .admin-quick-cards .card {
+      background: #111;
+      border: 1px solid #1f1f1f;
+      color: #f3f3f3;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+      height: 100%;
+    }
+    .admin-quick-cards .metric-label {
+      font-size: 0.9rem;
+      color: #b9b9b9;
+    }
+    .admin-quick-cards .metric-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    .admin-panels .card {
+      background: #0f0f0f;
+      border: 1px solid #1f1f1f;
+      color: #eaeaea;
+      border-radius: 14px;
+      height: 100%;
+    }
+    .admin-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(216, 35, 49, 0.12);
+      color: #ff6b81;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 1px solid rgba(216, 35, 49, 0.2);
+    }
+    .admin-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+    .admin-list li {
+      display: flex;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #121212;
+      border: 1px solid #1f1f1f;
+    }
+    .admin-list .icon-pill {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #1f1f1f;
+      color: #d82331;
+    }
+    .admin-help {
+      background: #0f0f0f;
+      border: 1px dashed #2a2a2a;
+      border-radius: 14px;
+      padding: 16px;
+    }
+  </style>
+</head>
+<body>
+<header class="tzk-header">
+  <div class="container-fluid tzk-header-row d-flex align-items-center justify-content-between">
+    <div class="tzk-header-left d-flex align-items-center">
+      <a href="/"><img src="/assets/logo/tazkirati-logo.png" alt="Tazkirati Logo" class="tzk-logo"></a>
+    </div>
+    <div class="tzk-header-center d-flex flex-column align-items-center flex-grow-1">
+      <nav>
+        <ul class="nav tzk-nav-menu justify-content-center gap-4">
+          <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="/events" class="nav-link">Events</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Sports</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Concerts</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Theater</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="tzk-header-right d-flex align-items-center gap-3">
+      <a href="#" class="tzk-small-link">My tickets</a>
+      <a href="/login" class="btn tzk-signin-btn px-3">Sign in</a>
+    </div>
+  </div>
+</header>
+
+<main class="container py-5">
+  <section class="admin-hero mb-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
+      <div>
+        <span class="admin-badge"><i class="bi bi-shield-lock"></i> Admin</span>
+        <h1 class="h3 mt-3 mb-2">Dashboard</h1>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-outline-light btn-sm"><i class="bi bi-arrow-clockwise"></i> Refresh data</button>
+        <a class="btn btn-danger btn-sm" href="/pages/organizer-events.html"><i class="bi bi-calendar2-event"></i> Organizer view</a>
+      </div>
+    </div>
+  </section>
+  <div id="adminStatsMessage" class="alert alert-warning d-none" role="alert"></div>
+
+  <section class="admin-quick-cards row g-3 mb-4">
+    <div class="col-md-3 col-sm-6">
+      <div class="card p-3">
+        <div class="metric-label">Active events</div>
+        <div class="metric-value" id="metricEvents">0</div>
+        <small class="text-secondary">Published and selling tickets</small>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="card p-3">
+        <div class="metric-label">Tickets sold</div>
+        <div class="metric-value" id="metricTickets">0</div>
+        <small class="text-secondary">Across all live events</small>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="card p-3">
+        <div class="metric-label">Revenue</div>
+        <div class="metric-value" id="metricRevenue">$ 0</div>
+        <small class="text-secondary">Gross ticket sales</small>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="card p-3">
+        <div class="metric-label">Open support items</div>
+        <div class="metric-value" id="metricSupport">0</div>
+        <small class="text-secondary">Refunds, disputes, flags</small>
+      </div>
+    </div>
+  </section>
+
+  <section class="admin-panels row g-3">
+    <div class="col-lg-6">
+      <div class="card p-3 h-100">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h2 class="h5 mb-0">Operations</h2>
+          <span class="badge text-bg-dark border">Real-time</span>
+        </div>
+        <ul class="admin-list">
+          <li>
+            <span class="icon-pill"><i class="bi bi-graph-up"></i></span>
+            <div>
+              <div class="fw-semibold">Performance snapshot</div>
+              <div class="text-secondary small">Monitor booking velocity, conversion, and drop-off trends.</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon-pill"><i class="bi bi-people"></i></span>
+            <div>
+              <div class="fw-semibold">User oversight</div>
+              <div class="text-secondary small">Audit roles, deactivate risky accounts, and escalate organizer issues.</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon-pill"><i class="bi bi-ticket-perforated"></i></span>
+            <div>
+              <div class="fw-semibold">Event health</div>
+              <div class="text-secondary small">Track at-risk events, cancellations, and sold-out status in minutes.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card p-3 h-100">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2 class="h5 mb-0">Add new venue</h2>
+          <span class="badge text-bg-secondary">Admin</span>
+        </div>
+        <div id="venueFormMessage" class="alert alert-warning d-none" role="alert"></div>
+        <form id="adminVenueForm" class="d-grid gap-2">
+          <div class="row g-2">
+            <div class="col-md-6">
+              <label class="form-label small mb-1">Venue name</label>
+              <input type="text" class="form-control form-control-sm" name="name" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small mb-1">Capacity</label>
+              <input type="number" class="form-control form-control-sm" name="capacity" required min="1">
+            </div>
+          </div>
+          <div>
+            <label class="form-label small mb-1">Address</label>
+            <input type="text" class="form-control form-control-sm" name="address" placeholder="123 Main St, City">
+          </div>
+          <div class="row g-2">
+            <div class="col-md-6">
+              <label class="form-label small mb-1">Layout type</label>
+              <select class="form-select form-select-sm" name="layout_type">
+                <option value="auditorium">Auditorium</option>
+                <option value="stadium">Stadium</option>
+                <option value="theater">Theater</option>
+                <option value="open_space">Open space</option>
+                <option value="custom">Custom</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small mb-1">Base layout preset</label>
+              <select class="form-select form-select-sm" id="layoutPresetSelect">
+                <option value="simple">Simple sections</option>
+                <option value="grid">Grid rows</option>
+                <option value="empty">Blank</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="form-label small mb-1">Layout config (JSON)</label>
+            <textarea class="form-control form-control-sm" id="layoutConfigInput" rows="6" spellcheck="false"></textarea>
+            <small class="text-secondary">Describe sections/rows; saved to <code>layout_config</code>. Seats can be generated later.</small>
+          </div>
+          <button type="submit" class="btn btn-danger btn-sm w-100" id="venueSubmitBtn">Create venue</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card p-3 h-100">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h2 class="h6 mb-0">Quick actions</h2>
+          <i class="bi bi-lightning-charge"></i>
+        </div>
+        <ul class="admin-list">
+          <li>
+            <span class="icon-pill"><i class="bi bi-person-check"></i></span>
+            <div class="d-flex justify-content-between align-items-center w-100">
+              <div>
+                <div class="fw-semibold">Review new organizers</div>
+                <div class="text-secondary small">Approve or flag onboarding requests.</div>
+              </div>
+              <a class="btn btn-sm btn-outline-light" href="/admin/organizers">Open</a>
+            </div>
+          </li>
+          <li>
+            <span class="icon-pill"><i class="bi bi-shield-exclamation"></i></span>
+            <div>
+              <div class="fw-semibold">Risk & refunds</div>
+              <div class="text-secondary small">Scan chargebacks and pending refund queues.</div>
+            </div>
+          </li>
+          <li>
+            <span class="icon-pill"><i class="bi bi-envelope"></i></span>
+            <div class="d-flex justify-content-between align-items-center w-100">
+              <div>
+                <div class="fw-semibold">Inquiries</div>
+                <div class="text-secondary small">Review contact form submissions.</div>
+              </div>
+              <a class="btn btn-sm btn-outline-light" href="/admin/inquiries">Open</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card p-3 h-100">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h2 class="h6 mb-0">Manage</h2>
+          <span class="badge text-bg-secondary">Admin</span>
+        </div>
+        <ul class="admin-list">
+          <li>
+            <span class="icon-pill"><i class="bi bi-people-gear"></i></span>
+            <div class="d-flex justify-content-between align-items-center w-100">
+              <div>
+                <div class="fw-semibold">User accounts</div>
+                <div class="text-secondary small">Review roles, deactivate, or hard delete.</div>
+              </div>
+              <a class="btn btn-sm btn-outline-light" href="/admin/users">Open</a>
+            </div>
+          </li>
+          <li>
+            <span class="icon-pill"><i class="bi bi-receipt-cutoff"></i></span>
+            <div class="d-flex justify-content-between align-items-center w-100">
+              <div>
+                <div class="fw-semibold">Orders / bookings</div>
+                <div class="text-secondary small">Audit bookings, refunds, and flags.</div>
+              </div>
+              <a class="btn btn-sm btn-outline-light" href="/admin/refunds">Refunds</a>
+            </div>
+          </li>
+          <li>
+            <span class="icon-pill"><i class="bi bi-qr-code-scan"></i></span>
+            <div class="d-flex justify-content-between align-items-center w-100">
+              <div>
+                <div class="fw-semibold">QR ticket scanner</div>
+                <div class="text-secondary small">Open camera and validate tickets (one-time use).</div>
+              </div>
+              <a class="btn btn-sm btn-outline-light" href="/pages/admin-qr-scan.html">Open</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="admin-help h-100">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-info-circle text-secondary"></i>
+          <span class="text-secondary">Need more data?</span>
+        </div>
+        <p class="text-secondary small mb-2">
+          Connect this dashboard to live metrics via <code>/api/admin/dashboard/stats</code> to surface bookings, revenue, and risk alerts in real time.
+        </p>
+        <button class="btn btn-danger btn-sm w-100" id="viewRawStatsBtn" type="button">View raw stats</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="/assets/js/auth-header.js"></script>
+<script src="/assets/js/admin-dashboard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

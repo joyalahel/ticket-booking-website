@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pay for Booking</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/assets/css/header.css">
+  <link rel="stylesheet" href="/assets/css/home.css">
+  <style>
+    .tzk-pay-page { max-width: 1100px; margin: 32px auto; padding: 0 16px 32px; }
+    .tzk-card { background: #fff; border: 1px solid #f0c8cf; border-radius: 16px; padding: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); display: grid; gap: 14px; }
+    .tzk-pay-grid { display: grid; grid-template-columns: 340px 1fr; gap: 16px; }
+    .tzk-booking-list { display: grid; gap: 12px; }
+    .tzk-booking-card { border: 1px solid #f0c8cf; border-radius: 12px; padding: 12px; cursor: pointer; background: #fff; transition: all 0.2s ease; }
+    .tzk-booking-card:hover { border-color: #d82331; box-shadow: 0 10px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .tzk-booking-card.active { border-color: #111; box-shadow: 0 10px 26px rgba(0,0,0,0.1); }
+    .tzk-detail { background: #fff7f9; border: 1px solid #f0c8cf; border-radius: 12px; padding: 14px; }
+    .tzk-btn { background: #d82331; color: #fff; border: none; padding: 10px 16px; border-radius: 10px; font-weight: 700; cursor: pointer; transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease; }
+    .tzk-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,0.1); background: #b81c29; }
+    .tzk-btn:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; transform: none; }
+    .tzk-btn.secondary { background: #444; }
+    .tzk-btn.secondary:hover:not(:disabled) { background: #222; }
+    .tzk-payment-msg { margin-top: 8px; font-weight: 700; }
+    .tzk-payment-msg.error { color: #d82331; }
+    .tzk-payment-msg.success { color: #0a8f42; }
+    .tzk-method-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 10px; background: #111; color: #fff; font-weight: 700; }
+    .tzk-method-logo { width: 24px; height: 24px; border-radius: 50%; background: #fff; color: #111; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; background-size: contain; background-repeat: no-repeat; background-position: center; }
+    .tzk-seats { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+    .tzk-seat-chip { padding: 6px 10px; background: #fff; border: 1px solid #f0c8cf; border-radius: 999px; font-weight: 600; color: #5c0a0f; }
+    .tzk-section-head { display: flex; justify-content: space-between; align-items: center; }
+    .tzk-pay-actions { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+
+    @media (max-width: 900px) {
+      .tzk-pay-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .tzk-card {
+        padding: 14px;
+      }
+
+      .tzk-section-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .tzk-pay-actions {
+        flex-direction: column;
+      }
+
+      .tzk-pay-actions .tzk-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body class="tzk-home">
+  <header class="tzk-header">
+    <div class="container-fluid tzk-header-row d-flex align-items-center justify-content-between">
+
+      <div class="tzk-header-left d-flex align-items-center">
+        <a href="/"><img src="/assets/logo/tazkirati-logo.png" alt="Tazkirati Logo" class="tzk-logo"></a>
+      </div>
+
+      <div class="tzk-header-center d-flex flex-column align-items-center flex-grow-1">
+        <nav>
+          <ul class="nav tzk-nav-menu justify-content-center gap-4">
+            <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="/events" class="nav-link">Events</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Sports</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Concerts</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Theater</a></li>
+          </ul>
+        </nav>
+
+        <form class="tzk-search-bar" role="search">
+          <input type="text" class="tzk-search-input" placeholder="Search..." aria-label="Search">
+          <button type="button" class="tzk-search-icon-btn">
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
+      </div>
+
+      <div class="tzk-header-right d-flex align-items-center gap-3">
+        <a href="#" class="tzk-small-link">My tickets</a>
+        <a href="/login" class="btn tzk-signin-btn px-3">Sign in</a>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="tzk-pay-page">
+    <div class="tzk-card">
+      <div class="tzk-section-head">
+        <h2>Pay Pending Bookings</h2>
+        <span style="color:#5c0a0f;">Choose a booking to confirm or cancel</span>
+      </div>
+      <div class="tzk-pay-grid">
+        <div>
+          <h4>Your pending bookings</h4>
+          <div id="bookingList" class="tzk-booking-list"></div>
+        </div>
+        <div class="tzk-detail">
+          <h4 id="detailTitle">Select a booking</h4>
+          <p id="detailMeta"></p>
+          <div id="detailSeats" class="tzk-seats"></div>
+          <div style="margin:8px 0;">
+            <span class="tzk-method-badge" id="detailMethod" hidden>
+              <span class="tzk-method-logo" id="detailMethodLogo"></span>
+              <span id="detailMethodName"></span>
+            </span>
+          </div>
+          <div class="tzk-pay-actions">
+            <button id="confirmPayBtn" class="tzk-btn" disabled>Confirm & send tickets</button>
+            <button id="rejectPayBtn" class="tzk-btn secondary" disabled>Reject / cancel</button>
+          </div>
+          <div id="payMessage" class="tzk-payment-msg"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/assets/js/auth-header.js"></script>
+  <script src="/assets/js/pay.js"></script>
+</body>
+</html>

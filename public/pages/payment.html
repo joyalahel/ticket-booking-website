@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Select Payment Method</title>
+  <link rel="stylesheet" href="/assets/css/home.css" />
+  <style>
+    .tzk-payment-page { max-width: 900px; margin: 24px auto; padding: 0 16px; }
+    .tzk-card { background: #fff; border: 1px solid #f0c8cf; border-radius: 12px; padding: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.05); }
+    .tzk-methods { display: grid; gap: 10px; margin-top: 12px; }
+    .tzk-method { border: 1px solid #f0c8cf; border-radius: 10px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: #fff; }
+    .tzk-method:hover { border-color: #d82331; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
+    .tzk-method.active { border-color: #111; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+    .tzk-method h4 { margin: 0; }
+    .tzk-method p { margin: 4px 0 0; color: #5c0a0f; }
+    .tzk-actions { margin-top: 14px; display: flex; gap: 10px; align-items: center; }
+    .tzk-btn { background: #d82331; color: #fff; border: none; padding: 10px 16px; border-radius: 10px; font-weight: 700; cursor: pointer; }
+    .tzk-btn:disabled { background: #ccc; cursor: not-allowed; }
+    .tzk-link { color: #d82331; text-decoration: none; }
+    .tzk-alert { margin-top: 10px; font-weight: 700; }
+    .tzk-alert.error { color: #d82331; }
+    .tzk-alert.success { color: #0a8f42; }
+
+    @media (max-width: 640px) {
+      .tzk-method {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .tzk-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .tzk-actions .tzk-btn,
+      .tzk-actions .tzk-link {
+        width: 100%;
+        text-align: center;
+        display: inline-block;
+      }
+    }
+  </style>
+</head>
+<body class="tzk-payment-page">
+  <div class="tzk-card">
+    <h2>Select a payment method</h2>
+    <p id="reservationInfo"></p>
+    <div id="methodList" class="tzk-methods"></div>
+    <div class="tzk-actions">
+      <button id="confirmPaymentBtn" class="tzk-btn" disabled>Continue to pay</button>
+      <a class="tzk-link" href="/pages/event-details.html?id=" id="backToEvent">Back to event</a>
+    </div>
+    <div id="paymentMessage" class="tzk-alert"></div>
+  </div>
+
+  <script src="/assets/js/payment.js"></script>
+</body>
+</html>

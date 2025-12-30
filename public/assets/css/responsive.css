@@ -1,0 +1,88 @@
+/* ================================
+   RESPONSIVE DESIGN
+=================================== */
+
+/* Medium screens */
+@media (max-width: 900px) {
+  .tz-header {
+    padding: 0.8rem 1.2rem;
+    flex-wrap: wrap;
+    row-gap: 0.4rem;
+  }
+
+  .tz-nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tz-hero {
+    margin: 0.75rem 1.2rem 1.5rem;
+    grid-template-columns: 1fr;
+  }
+
+  .tz-hero-right {
+    min-height: 220px;
+  }
+
+  .tz-section {
+    padding: 1.2rem 1.2rem;
+  }
+
+  .tz-search-section {
+    padding: 1.2rem 1.2rem 0.5rem;
+  }
+
+  .auth-page {
+    margin: 2rem 1rem;
+  }
+}
+
+/* Small screens / mobile */
+@media (max-width: 600px) {
+  .tz-header {
+    justify-content: space-between;
+  }
+
+  .tz-nav-links {
+    display: none;
+  }
+
+  .tz-search-wrapper {
+    border-radius: 12px;
+  }
+
+  .tz-hero-left {
+    padding: 1.4rem;
+  }
+
+  .tz-hero-left h1 {
+    font-size: 1.6rem;
+  }
+
+  .tz-filters-row {
+    padding: 0 1.2rem 0.7rem;
+  }
+
+  .tz-section-title {
+    font-size: 1.15rem;
+  }
+
+  .tz-event-card-main {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tz-event-card-side {
+    align-items: flex-start;
+  }
+}
+@media (max-width: 768px) {
+  .tz-search-bar {
+    max-width: 90%;
+  }
+
+  .tz-logo-img {
+    height: 55px;
+  }
+}

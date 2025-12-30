@@ -1,0 +1,392 @@
+/* ===== HEADER BASE ===== */
+
+.tzk-header {
+  background: #000;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #111;
+}
+
+.tzk-header-row {
+  padding: 0.4rem 1.5rem 0.6rem;
+}
+
+.tzk-header-center nav {
+  width: 100%;
+}
+
+/* ===== LOGO LEFT ===== */
+
+.tzk-logo {
+  height: 95px;
+  width: auto;
+  margin-left: 20px;   /* move a little away from edge */
+}
+
+/* ===== CENTER MENU ===== */
+
+.tzk-nav-menu .nav-link {
+  color: #e5e5e5;
+  font-size: 0.95rem;
+  padding: 0.2rem 0;
+}
+
+.tzk-nav-menu .nav-link.active,
+.tzk-nav-menu .nav-link:hover {
+  color: #d82331;   /* red highlight */
+}
+
+.tzk-nav-menu {
+  flex-wrap: wrap;
+  row-gap: 0.25rem;
+  justify-content: center;
+}
+
+/* ===== SEARCH UNDER MENU (CENTER ONLY) ===== */
+
+/* Container that centers the search under the menu */
+.tzk-search-bar {
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 100%;
+  max-width: 520px;
+}
+
+/* SEARCH INPUT */
+.tzk-search-input {
+  flex: 1 1 200px;
+  min-width: 0;
+  width: 100%;                       /* normal size */
+  max-width: 320px;
+  background: #ffffff;                /* white background */
+  color: #111;
+  border: 4px solid #111;
+   
+  padding: 4px 10px 4px 6px;
+  font-size: 0.9rem;
+  outline: none;
+  text-align: center;
+  transition: width 0.25s ease, box-shadow 0.2s ease;
+}
+
+.tzk-search-input::placeholder {
+  color: #888;
+}
+
+/* When user clicks in the input */
+.tzk-search-input:focus {
+  max-width: 380px;                       /* expand a bit */
+  width: 100%;
+  
+}
+
+/* SEARCH ICON BUTTON */
+.tzk-search-icon-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  color: #d82331;                        /* dark icon on white bg, like TBO */
+  transition: color 0.2s ease;
+}
+
+.tzk-search-icon-btn:hover {
+  color: #a31622;                     /* red on hover */
+}
+
+/* ===== RIGHT SIDE (MY TICKETS + SIGN IN) ===== */
+
+.tzk-small-link {
+  color: #ddd;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.tzk-small-link:hover {
+  color: #fff;
+}
+
+.tzk-header-right .tzk-small-link[href="#"] {
+  display: none !important; /* hide deprecated header link "My tickets" */
+}
+
+.tzk-signin-btn {
+  background: #d82331;
+  color: #fff;
+  border-radius: 20px;
+  border: none;
+}
+
+.tzk-signin-btn:hover {
+  background: #a31622;
+}
+
+.tzk-logout-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background: #d82331;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.tzk-logout-btn:hover {
+  background: #a31622;
+  color: #fff;
+}
+
+.tzk-user-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.tzk-user-link:hover {
+  color: #d82331;
+}
+
+.tzk-user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #d82331;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.tzk-user-name {
+  white-space: nowrap;
+}
+
+.tzk-user-dropdown {
+  position: relative;
+}
+
+.tzk-user-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+}
+
+.tzk-user-trigger:hover {
+  border-color: #d82331;
+}
+
+.tzk-user-caret {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.tzk-user-menu {
+  position: absolute;
+  right: 0;
+  top: 110%;
+  background: #0d0d0d;
+  border: 1px solid #1f1f1f;
+  border-radius: 10px;
+  min-width: 200px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+  padding: 6px;
+  display: none;
+  z-index: 10;
+}
+
+.tzk-user-dropdown.open .tzk-user-menu {
+  display: grid;
+  gap: 6px;
+}
+
+.tzk-user-menu a {
+  color: #e5e5e5;
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  display: block;
+}
+
+.tzk-user-menu a:hover {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.tzk-user-menu .tzk-user-menu-rich {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tzk-user-menu-title {
+  font-weight: 600;
+  color: #fff;
+}
+
+.tzk-user-menu-desc {
+  color: #9a9a9a;
+  font-size: 0.82rem;
+  line-height: 1.25;
+}
+
+/* ===== FOOTER (shared) ===== */
+.tzk-footer {
+  background: #0d0d0d;
+  color: #f4d8dc;
+  padding: 24px 16px;
+  margin-top: 20px;
+}
+
+.tzk-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.tzk-footer-logo {
+  height: 48px;
+  width: auto;
+  display: block;
+}
+
+.tzk-footer-text {
+  margin: 6px 0 0;
+  color: #f2c4cc;
+}
+
+.tzk-footer-links {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.tzk-footer-links a {
+  color: #f4d8dc;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.tzk-footer-links a:hover {
+  color: #fff;
+}
+
+.tzk-footer-meta {
+  color: #e0b2ba;
+  font-size: 0.9rem;
+}
+
+/* Page wrapper for sticky footer */
+.tzk-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.tzk-main {
+  flex: 1;
+}
+
+/* Profile password button */
+#changePasswordBtn {
+  background: #d82331 !important;
+  border-color: #d82331 !important;
+  color: #fff !important;
+}
+
+#changePasswordBtn:hover,
+#changePasswordBtn:focus {
+  background: #a31622 !important;
+  border-color: #a31622 !important;
+  color: #fff !important;
+}
+
+/* ===== RESPONSIVE TWEAKS ===== */
+
+@media (max-width: 900px) {
+  .tzk-header-row {
+    flex-wrap: wrap;
+    row-gap: 0.4rem;
+    justify-content: center;
+  }
+
+  .tzk-header-left,
+  .tzk-header-right {
+    order: 1;
+  }
+
+  .tzk-header-center {
+    order: 2;
+    flex-basis: 100%;
+  }
+
+  .tzk-search-bar {
+    max-width: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tzk-header-row {
+    padding: 0.5rem 0.75rem 0.6rem;
+  }
+
+  .tzk-header-center {
+    width: 100%;
+  }
+
+  .tzk-nav-menu {
+    width: 100%;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  .tzk-search-bar {
+    max-width: none;
+    padding: 0 6px;
+  }
+
+  .tzk-search-input {
+    max-width: none;
+  }
+
+  .tzk-search-input:focus {
+    max-width: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .tzk-nav-menu {
+    gap: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .tzk-logo {
+    height: 55px;
+  }
+}
